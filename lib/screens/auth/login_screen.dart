@@ -3,6 +3,7 @@ import 'package:ecommerce_app/constants/validator.dart';
 import 'package:ecommerce_app/providers/user_provider.dart';
 import 'package:ecommerce_app/root_screen.dart';
 import 'package:ecommerce_app/screens/admin/admin_dashboard.dart';
+import 'package:ecommerce_app/screens/auth/google_btn.dart';
 import 'package:ecommerce_app/screens/auth/register_screen.dart';
 import 'package:ecommerce_app/widgets/loadding_manager.dart';
 import 'package:ecommerce_app/widgets/subtitle_text.dart';
@@ -108,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 60),
-                  Text("Duka Letu"),
+                  const Text("Duka"),
                   const SizedBox(height: 16),
                   const Align(
                     alignment: Alignment.centerLeft,
@@ -176,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onPressed: () {
                               Navigator.of(
                                 context,
-                              ).pushNamed(RegisterScreen.routName);
+                              ).pushNamed(LoginScreen.routName);
                             },
                             child: const SubtitleTextWidget(
                               label: "Forgot password?",
@@ -214,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: SizedBox(
                                 height: kBottomNavigationBarHeight,
 
-                                child: Text("Coming soon"),
+                                child: GoogleButton(),
                               ),
                             ),
 

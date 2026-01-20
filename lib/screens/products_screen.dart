@@ -3,48 +3,16 @@ import 'package:ecommerce_app/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
-class SearchScreen extends StatefulWidget {
-  static const routName = "/SearchScreen";
+class ProductsScreen extends StatelessWidget {
+  static const routName = "/ProductsScreen";
 
-  const SearchScreen({super.key});
-
-  @override
-  State<SearchScreen> createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-  final TextEditingController _searchController = TextEditingController();
-  String _query = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _searchController.addListener(() {
-      setState(() {
-        _query = _searchController.text.toLowerCase();
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
+  const ProductsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextField(
-          controller: _searchController,
-          decoration: const InputDecoration(
-            hintText: 'Search products...',
-            border: InputBorder.none,
-            hintStyle: TextStyle(color: Colors.white70),
-          ),
-          style: const TextStyle(color: Colors.white),
-        ),
+        title: const Text('Products'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -63,14 +31,6 @@ class _SearchScreenState extends State<SearchScreen> {
             return ProductModel.fromDocument(doc.id, doc.data() as Map<String, dynamic>);
           }).toList();
 
-          final filteredProducts = _query.isEmpty
-              ? products
-              : products.where((product) => product.productTitle.toLowerCase().contains(_query)).toList();
-
-          if (filteredProducts.isEmpty) {
-            return const Center(child: Text('No products found'));
-          }
-
           return GridView.builder(
             padding: const EdgeInsets.all(8.0),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -79,9 +39,9 @@ class _SearchScreenState extends State<SearchScreen> {
               mainAxisSpacing: 8.0,
               childAspectRatio: 0.7,
             ),
-            itemCount: filteredProducts.length,
+            itemCount: products.length,
             itemBuilder: (context, index) {
-              final product = filteredProducts[index];
+              final product = products[index];
               return Card(
                 elevation: 2,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

@@ -1,5 +1,6 @@
-import 'package:ecommerce_app/screens/cart_screen.dart';
 import 'package:ecommerce_app/screens/home_screen.dart';
+import 'package:ecommerce_app/screens/orders_screen.dart';
+import 'package:ecommerce_app/screens/products_screen.dart';
 import 'package:ecommerce_app/screens/profile_screen.dart';
 import 'package:ecommerce_app/screens/search_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +25,12 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   void initState() {
-    screens = const [
-      HomeScreen(),
-      SearchScreen(),
-      CartScreen(),
-      ProfileScreen(),
+    screens = [
+      const HomeScreen(),
+      const ProductsScreen(),
+      const SearchScreen(),
+      const OrdersScreen(),
+      const ProfileScreen(),
     ];
     controller = PageController(initialPage: currentScreen);
 
@@ -58,21 +60,26 @@ class _RootScreenState extends State<RootScreen> {
 
         destinations: [
           NavigationDestination(
-            selectedIcon: Icon(IconlyBold.activity),
+            selectedIcon: Icon(IconlyBold.home),
             icon: Icon(IconlyLight.home),
-            label: "home",
+            label: "Home",
           ),
-           NavigationDestination(
+          NavigationDestination(
+            selectedIcon: Icon(IconlyBold.bag),
+            icon: Icon(IconlyLight.bag),
+            label: "Products",
+          ),
+          NavigationDestination(
             selectedIcon: Icon(IconlyBold.search),
             icon: Icon(IconlyLight.search),
             label: "Search",
           ),
-           NavigationDestination(
-            selectedIcon: Icon(IconlyBold.bag_2),
-            icon: Icon(IconlyLight.bag_2),
-            label: "Cart",
+          NavigationDestination(
+            selectedIcon: Icon(IconlyBold.document),
+            icon: Icon(IconlyLight.document),
+            label: "Orders",
           ),
-           NavigationDestination(
+          NavigationDestination(
             selectedIcon: Icon(IconlyBold.profile),
             icon: Icon(IconlyLight.profile),
             label: "Profile",

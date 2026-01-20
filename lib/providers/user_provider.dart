@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class UserProvider with ChangeNotifier {
   UserModel? _user;
@@ -77,6 +78,38 @@ class UserProvider with ChangeNotifier {
       return null;
     } on FirebaseAuthException catch (e) {
       return e.message ?? "Login failed";
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
+  Future<String?> loginWithGoogle() async {
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      if (googleUser == null) {
+        return "Google sign-in cancelled";
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      final user = userCredential.user;
+
+      if (user == null) {
+        return "Google login failed";
+      }
+
+      // fetch Firestore user after login
+      await fetchUser();
+      return null;
+    } on FirebaseAuthException catch (e) {
+      return e.message ?? "Google login failed";
     } catch (e) {
       return e.toString();
     }

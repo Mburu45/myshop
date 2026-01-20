@@ -6,6 +6,10 @@ import 'package:ecommerce_app/root_screen.dart';
 import 'package:ecommerce_app/screens/admin/admin_dashboard.dart';
 import 'package:ecommerce_app/screens/auth/login_screen.dart';
 import 'package:ecommerce_app/screens/auth/register_screen.dart';
+import 'package:ecommerce_app/screens/orders_screen.dart';
+import 'package:ecommerce_app/screens/products_screen.dart';
+import 'package:ecommerce_app/screens/profile_screen.dart';
+import 'package:ecommerce_app/screens/search_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +60,10 @@ await  Firebase.initializeApp(options:DefaultFirebaseOptions.currentPlatform );
               RootScreen.routName: (context) => const RootScreen(),
               AdminDashboard.routName: (context) => const AdminDashboard(),
               RegisterScreen.routName: (context) => const RegisterScreen(),
+              ProductsScreen.routName: (context) => const ProductsScreen(),
+              SearchScreen.routName: (context) => const SearchScreen(),
+              OrdersScreen.routName: (context) => const OrdersScreen(),
+              ProfileScreen.routName: (context) => const ProfileScreen(),
             },
           );
         },
